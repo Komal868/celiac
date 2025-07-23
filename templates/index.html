@@ -1,0 +1,275 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GlutoSafe - Celiac Awareness</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+</head>
+<body>
+  <!-- 🌿 Top Slogan Bar -->
+<div class="top-slogan">
+  <h1>Live Gluten-Free, Live Healthy 🥦</h1>
+</div>
+
+
+
+
+  <!-- 🟢 Welcome Section -->
+<section class="welcome-section">
+  <div class="welcome-content">
+    <h1>Welcome to <span style="color: #fbc02d;">GlutoSafe</span></h1>
+    <p>Your trusted companion in gluten-free living 🥬</p>
+  </div>
+</section>
+
+<!-- 🔵 Navigation Bar -->
+<nav class="main-nav">
+  <a href="/">Home</a>
+  <a href="/celiac">What is Celiac?</a>
+  <a href="/diet-form">Diet</a>
+  <a href="/symptom_checker">Tests</a>
+  <a href="/contact">Contact</a> <!-- (make this route in Flask if needed) -->
+</nav>
+
+
+
+  <!-- Feature Section -->
+<section class="features">
+  <h2 class="section-title">Explore Features</h2>
+
+  <div class="feature-container">
+    <a href="/scan" class="feature-link">
+      <div class="feature-card">
+        <h3>📷 Scan Products</h3>
+        <p>Scan barcodes and instantly check if a product is gluten-free or not.</p>
+      </div>
+    </a>
+
+    <a href="/chat" class="feature-link">
+      <div class="feature-card">
+        <h3>💬 Chat with AI</h3>
+        <p>Ask anything about Celiac Disease to our intelligent chatbot.</p>
+      </div>
+    </a>
+
+    <a href="/diet-form" style="text-decoration: none; color: inherit;">
+  <div class="feature-card">
+    <h3>🥗 Weekly Diet Plan</h3>
+    <p>Personalized gluten-free diet recommendations, week-by-week.</p>
+  </div>
+</a>
+
+   <a href="/symptom_checker">
+  <div class="feature-card">
+    <h3>📋 Symptom Checker</h3>
+    <p>Analyze your health symptoms to detect Celiac or related issues.</p>
+  </div>
+</a>
+
+
+    <a href="/gluten_info" class="feature-link">
+      <div class="feature-card">
+        <h3>📚 Learn About Gluten</h3>
+        <p>Explore articles, videos, and facts about gluten and gluten-free lifestyle.</p>
+      </div>
+    </a>
+
+    <a href="/nearby_stores" class="feature-link">
+      <div class="feature-card">
+        <h3>📍 Nearby Gluten-Free Stores</h3>
+        <p>Find stores and products near you that support a gluten-free diet.</p>
+      </div>
+    </a>
+
+    <a href="/recipes" class="feature-link">
+      <div class="feature-card">
+        <h3>📖 Gluten-Free Recipes</h3>
+        <p>Discover tasty and healthy recipes specially curated for a gluten-free lifestyle.</p>
+      </div>
+    </a>
+
+    <a href="/myths" class="feature-link">
+      <div class="feature-card">
+        <h3>🧠 Myth Buster</h3>
+        <p>Bust common myths and misconceptions about gluten and Celiac Disease.</p>
+      </div>
+    </a>
+  </div>
+</section>
+
+
+
+
+  <!-- CTA -->
+  <section class="cta">
+    <h2>✨ Take Control of Your Health</h2>
+    <p>Empower yourself with the right knowledge and support.</p>
+    <a href="/celiac" class="cta-button">Learn About Celiac</a>
+  </section>
+
+  <section class="testimonial-section">
+  <h2>💬 Real Stories, Real Impact</h2>
+  <div class="testimonial-cards">
+
+    <div class="testimonial-card">
+      <p>“After discovering GlutoSafe, my life changed! Now I feel more confident in managing my celiac diet.”</p>
+      <span>— Ananya, Delhi</span>
+    </div>
+
+    <div class="testimonial-card">
+      <p>“This platform helped me scan products and follow a gluten-free diet easily. A lifesaver!”</p>
+      <span>— Rohan, Mumbai</span>
+    </div>
+
+    <div class="testimonial-card">
+      <p>“The weekly meal plans and chatbot support were exactly what I needed. Thank you GlutoSafe!”</p>
+      <span>— Meera, Bengaluru</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- 💬 Chatbot Floating Button -->
+<div id="chatbot-icon" onclick="toggleChatbot()">💬</div>
+
+<!-- 💬 Chatbot Box (Initially Hidden) -->
+<div id="chatbot-container" style="display: none;">
+  <div id="chat-header">🤖 Ask Me About Celiac</div>
+  <div id="chat-messages"></div>
+  <div id="chat-input-area">
+    <input type="text" id="chat-input" placeholder="Ask me anything...">
+    <button onclick="sendMessage()">Send</button>
+  </div>
+</div>
+
+<script>
+function toggleChatbot() {
+  const chatbotBox = document.getElementById("chatbot-container");
+  chatbotBox.style.display = chatbotBox.style.display === "none" ? "block" : "none";
+}
+
+function sendMessage() {
+  const input = document.getElementById("chat-input");
+  const message = input.value.trim();
+  if (message === "") return;
+
+  // Display user's message
+  const msgContainer = document.getElementById("chat-messages");
+  const userMsg = document.createElement("div");
+  userMsg.innerText = "🧑‍⚕️ You: " + message;
+  msgContainer.appendChild(userMsg);
+
+  input.value = "";
+
+  fetch('/chat', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ message: message })
+  })
+  .then(res => res.json())
+  .then(data => {
+    const botReply = document.createElement("div");
+    botReply.innerText = "🤖 Bot: " + data.reply;
+    msgContainer.appendChild(botReply);
+    msgContainer.scrollTop = msgContainer.scrollHeight;
+  })
+  .catch(err => {
+    const botReply = document.createElement("div");
+    botReply.innerText = "🤖 Bot: Error fetching response!";
+    msgContainer.appendChild(botReply);
+  });
+}
+</script>
+
+<!-- 🌟 Floating Chatbot Button -->
+<style>
+  #chatBotIcon {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #7e57c2;
+    color: white;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    cursor: pointer;
+    z-index: 999;
+    transition: transform 0.2s;
+  }
+
+  #chatBotIcon:hover {
+    transform: scale(1.1);
+    background-color: #5e35b1;
+  }
+</style>
+
+<div id="chatBotIcon" onclick="window.location.href='/chat'">💬</div>
+
+
+  <!-- Footer -->
+  <footer class="site-footer">
+  <div class="footer-container">
+    
+    <div class="footer-column">
+      <h3>About GlutoSafe</h3>
+      <p>Your trusted guide for living a safe and healthy gluten-free life. Powered by AI and community.</p>
+    </div>
+
+    <div class="footer-column">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">What is Celiac?</a></li>
+        <li><a href="#">Diet</a></li>
+        <li><a href="#">Tests</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h3>Resources</h3>
+      <ul>
+        <li><a href="#">Gluten-Free Recipes</a></li>
+        <li><a href="#">Educational Videos</a></li>
+        <li><a href="#">Celiac Support Groups</a></li>
+        <li><a href="#">FAQs</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h3>Contact Us</h3>
+      <p>Email: support@glutosafe.com</p>
+      <p>Phone: +91-9876543210</p>
+      <p>Location: India</p>
+
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2025 GlutoSafe. All rights reserved. | Designed with ❤️ by <strong>Komal</strong></p>
+  </div>
+</footer>
+
+
+
+</body>
+
+</html>

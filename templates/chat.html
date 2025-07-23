@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ask Me Anything 💬</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #e0f7fa, #fce4ec);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100vh;
+    }
+
+    h1 {
+      margin-top: 30px;
+      color: #333;
+      font-size: 2rem;
+    }
+
+    .chatbox {
+      width: 90%;
+      max-width: 600px;
+      height: 70vh;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .messages {
+      flex: 1;
+      overflow-y: auto;
+      margin-bottom: 15px;
+    }
+
+    .message {
+      padding: 10px 15px;
+      border-radius: 12px;
+      margin-bottom: 10px;
+      max-width: 80%;
+    }
+
+    .user {
+      background: #d1c4e9;
+      align-self: flex-end;
+      text-align: right;
+    }
+
+    .bot {
+      background: #b2dfdb;
+      align-self: flex-start;
+      text-align: left;
+    }
+
+    .input-area {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    button, .mic-btn {
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    button {
+      background-color: #7e57c2;
+      color: white;
+    }
+
+    button:hover {
+      background-color: #5e35b1;
+    }
+
+    .mic-btn {
+      background-color: #f06292;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mic-btn.recording {
+      background-color: #d32f2f;
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #ccc;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Ask Me Anything 💬</h1>
+
+  <div class="chatbox">
+    <div class="messages" id="chatMessages"></div>
+    <div class="input-area">
+      <input type="text" id="userInput" placeholder="Type your message..." />
+      <button onclick="sendMessage()">Send</button>
+      <button class="mic-btn" id="micBtn" onclick="startListening()">🎤</button>
+    </div>
+  </div>
+
+  <script>
+    const micBtn = document.getElementById("micBtn");
+
+    function addMessage(text, sender) {
+      const msg = document.createElement("div");
+      msg.classList.add("message", sender);
+      msg.innerText = text;
+      document.getElementById("chatMessages").appendChild(msg);
+      document.getElementById("chatMessages").scrollTop = document.getElementById("chatMessages").scrollHeight;
+    }
+
+    async function sendMessage() {
+      const input = document.getElementById("userInput");
+      const message = input.value.trim();
+      if (!message) return;
+
+      addMessage(message, "user");
+      input.value = "";
+
+      try {
+        const res = await fetch("/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message }),
+        });
+
+        const data = await res.json();
+        addMessage(data.reply, "bot");
+      } catch (err) {
+        addMessage("⚠️ Error talking to the chatbot.", "bot");
+      }
+    }
+
+    function startListening() {
+      if (!('webkitSpeechRecognition' in window)) {
+        alert("❌ Voice recognition not supported in this browser.");
+        return;
+      }
+
+      const recognition = new webkitSpeechRecognition();
+      recognition.lang = "en-US";
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+
+      micBtn.classList.add("recording");
+      micBtn.innerText = "🎙️ Listening...";
+
+      recognition.start();
+
+      recognition.onresult = function(event) {
+        const voiceInput = event.results[0][0].transcript;
+        document.getElementById("userInput").value = voiceInput;
+        micBtn.classList.remove("recording");
+        micBtn.innerText = "🎤";
+        sendMessage();
+      };
+
+      recognition.onerror = function(event) {
+        console.error("Voice error:", event);
+        micBtn.classList.remove("recording");
+        micBtn.innerText = "🎤";
+      };
+
+      recognition.onend = function() {
+        micBtn.classList.remove("recording");
+        micBtn.innerText = "🎤";
+      };
+    }
+
+    document.getElementById("userInput").addEventListener("keydown", function(e) {
+      if (e.key === "Enter") sendMessage();
+    });
+  </script>
+  <!-- 🌟 Floating Chatbot Button -->
+<style>
+  #chatBotIcon {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #7e57c2;
+    color: white;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    cursor: pointer;
+    z-index: 999;
+    transition: transform 0.2s;
+  }
+
+  #chatBotIcon:hover {
+    transform: scale(1.1);
+    background-color: #5e35b1;
+  }
+</style>
+
+<div id="chatBotIcon" onclick="window.location.href='/chat'">💬</div>
+
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Symptom Checker - GlutoSafe</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f2f9f1;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #1c7c54;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 15px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      background-color: #1c7c54;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    #response {
+      margin-top: 25px;
+      background: #e8f5e9;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 15px;
+      color: #2e7d32;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>🩺 Symptom Checker</h2>
+
+    <form id="symptomForm">
+      <label>Illness History</label>
+      <textarea name="illness" required></textarea>
+
+      <label>Current Symptoms</label>
+      <textarea name="symptoms" required></textarea>
+
+      <label>Duration (e.g. 3 days)</label>
+      <input type="text" name="duration" required />
+
+      <label>Diet History</label>
+      <textarea name="diet" required></textarea>
+
+      <label>Last Period Date (if applicable)</label>
+      <input type="date" name="period" />
+
+      <button type="submit">Analyze</button>
+    </form>
+
+    <div id="response"></div>
+  </div>
+
+  <script>
+    const form = document.getElementById('symptomForm');
+    const responseDiv = document.getElementById('response');
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+
+      const res = await fetch('/analyze_symptoms', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      const result = await res.json();
+      responseDiv.innerText = result.reply;
+    });
+  </script>
+</body>
+</html>

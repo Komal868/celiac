@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Scan Product - Gluten Check</title>
+  <script src="https://unpkg.com/html5-qrcode"></script>
+  <link rel="icon" href="https://img.icons8.com/ios-filled/50/microphone.png">
+
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #e8f5e9, #f1f8e9);
+      padding: 40px 20px;
+      color: #2e7d32;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 32px;
+      margin-bottom: 10px;
+      color: #1b5e20;
+    }
+
+    #reader {
+      width: 300px;
+      margin: 30px auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    #result {
+      font-size: 20px;
+      margin-top: 20px;
+      background: #ffffff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      width: 200px;
+      margin-top: 20px;
+    }
+
+    button {
+      background: #2e7d32;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      margin-left: 10px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #1b5e20;
+    }
+
+    #manualResult {
+      margin-top: 15px;
+      font-size: 18px;
+      background: #fff3e0;
+      padding: 10px;
+      border-radius: 5px;
+      width: 70%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .divider {
+      margin: 40px auto 20px;
+      border-top: 2px dashed #c8e6c9;
+      width: 80%;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>📸 Scan Product to Check for Gluten</h2>
+
+  <div id="reader"></div>
+  <div id="result">Scan a product barcode to check its gluten content</div>
+
+  <div class="divider"></div>
+
+  <h3>🔍 Or Enter Barcode Manually</h3>
+  <input type="text" id="manualBarcode" placeholder="e.g., 8901234567890">
+  <button onclick="checkManually()">Check</button>
+  <div id="manualResult"></div>
+
+  <script>
+    const scanner = new Html5QrcodeScanner("reader", {
+      fps: 10,
+      qrbox: 250
+    });
+
+    function onScanSuccess(decodedText) {
+      scanner.clear();
+      document.getElementById("result").innerText = "🔍 Searching...";
+
+      fetch('/check_barcode', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ barcode: decodedText })
+      })
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("result").innerText = data.result;
+      });
+    }
+
+    scanner.render(onScanSuccess);
+
+    function checkManually() {
+      const barcode = document.getElementById("manualBarcode").value;
+      fetch('/check_barcode', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ barcode })
+      })
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("manualResult").innerText = data.result;
+      });
+    }
+  </script>
+  <!-- Existing barcode input elements -->
+<h3>🎙️ Or Speak the Barcode</h3>
+<button onclick="startListening()">🎤 Start Listening</button>
+<p id="voiceResult" style="margin-top: 10px; font-size: 18px;"></p>
+
+<!-- Your script goes here -->
+<script>
+function startListening() {
+  const resultEl = document.getElementById("voiceResult");
+  resultEl.innerText = "🎧 Listening...";
+
+  if (!('webkitSpeechRecognition' in window)) {
+    resultEl.innerText = "❌ Voice recognition not supported in this browser.";
+    return;
+  }
+
+  const recognition = new webkitSpeechRecognition(); // For Chrome
+  recognition.lang = "en-IN";
+  recognition.interimResults = false;
+  recognition.maxAlternatives = 1;
+
+  recognition.onresult = function(event) {
+    const transcript = event.results[0][0].transcript;
+    const cleaned = transcript.replace(/\D/g, ''); // Keep only digits
+    resultEl.innerText = `🎤 Heard: ${transcript}`;
+
+    if (cleaned.length >= 6) {
+      fetch('/check_barcode', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ barcode: cleaned })
+      })
+      .then(res => res.json())
+      .then(data => {
+        resultEl.innerText += `\n🔎 Result: ${data.result}`;
+      });
+    } else {
+      resultEl.innerText += `\n❗ Didn't catch a valid barcode. Try again.`;
+    }
+  };
+
+  recognition.onerror = function(event) {
+    resultEl.innerText = `❌ Error: ${event.error}`;
+  };
+
+  recognition.start();
+}
+</script>
+</body>
+</html>
+
+
+

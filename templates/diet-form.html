@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gluten-Free Diet Preferences</title>
+  <style>
+    body { font-family: Arial; padding: 20px; background: #f2f2f2; }
+    form { background: #fff; padding: 25px; max-width: 700px; margin: auto; border-radius: 10px; }
+    h2 { text-align: center; color: #00695c; }
+    label { font-weight: bold; display: block; margin-top: 15px; }
+    input, select, textarea {
+      width: 100%; padding: 8px; margin-top: 5px; border-radius: 5px; border: 1px solid #ccc;
+    }
+    button {
+      margin-top: 20px;
+      background: #00796b;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 5px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <h2>🍽️ Build Your Gluten-Free Diet Plan</h2>
+  <form action="/generate-diet" method="POST">
+    <label>Your Name:</label>
+    <input type="text" name="name" required>
+
+    <label>Your Diet Type:</label>
+    <select name="diet_type" required>
+      <option>Vegetarian</option>
+      <option>Non-Vegetarian</option>
+      <option>Vegan</option>
+    </select>
+
+    <label>Spice Tolerance:</label>
+    <select name="spice_level" required>
+      <option>Low</option>
+      <option>Medium</option>
+      <option>High</option>
+    </select>
+
+    <label>Health Goal:</label>
+    <select name="goal" required>
+      <option>Weight Loss</option>
+      <option>Muscle Gain</option>
+      <option>Healthy Eating</option>
+    </select>
+
+    <label>Your Favorite Breakfast Items:</label>
+    <input type="text" name="fav_breakfast" placeholder="Poha, Upma, Smoothies...">
+
+    <label>Your Favorite Lunch Items:</label>
+    <input type="text" name="fav_lunch" placeholder="Dal rice, Chicken curry...">
+
+    <label>Your Favorite Dinner Items:</label>
+    <input type="text" name="fav_dinner" placeholder="Paneer, Soup, Quinoa...">
+
+    <label>Any Foods You Hate or Dislike?</label>
+    <input type="text" name="dislikes">
+
+    <label>Any Allergies or Restrictions?</label>
+    <input type="text" name="allergies">
+
+    <label>Additional Notes:</label>
+    <textarea name="notes" rows="3"></textarea>
+
+    <button type="submit">Generate My Personalized Diet</button>
+  </form>
+</body>
+</html>
