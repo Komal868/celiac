@@ -43,6 +43,13 @@ load_chat_csv()
 
 # =================== Routes ===================
 
+
+
+
+
+
+
+
 @app.route('/')
 def home():
     return render_template('index.html')
@@ -52,8 +59,8 @@ def diet():
     return render_template('diet.html')
 
 @app.route('/tests')
-def tests():
-    return render_template('tests.html')
+def test():
+    return render_template('test.html')
 
 @app.route('/contact')
 def contact():

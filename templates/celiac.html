@@ -1,210 +1,97 @@
 <!-- File: celiac.html -->
+
+  
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>What is Celiac Disease?</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+ <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 
 </head>
 <body>
 
-  <header class="hero-header">
-  <div class="hero-overlay">
-    <h1>What is Celiac Disease?</h1>
-    
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="celiac.html">Celiac?</a>
-      <a href="diet.html">Diet</a>
-      <a href="test.html">Test</a>
-      <a href="contact.html">Contact</a>
-    </nav>
+  <header>
+    <h1>Understanding Celiac Disease</h1>
   </header>
 
   <main>
+    <!-- Introduction -->
     <section>
-      <h2>Celiac Disease (Hinglish Explanation)</h2>
-      <p><strong>Celiac Disease</strong> ek autoimmune condition hoti hai jisme jab aap <strong>gluten</strong> khaate ho (jaise roti, bread, pasta), to aapka immune system aapki <strong>small intestine</strong> (chhoti aant) ko damage karta hai.</p>
+      <h2>🌾 What is Celiac Disease?</h2>
+      <p>
+        Celiac disease is an <strong>autoimmune disorder</strong> where the immune system reacts 
+        abnormally to gluten (a protein found in wheat, barley, and rye). When people with 
+        celiac disease eat gluten, their immune system attacks the small intestine, 
+        causing damage to the lining and making it difficult to absorb nutrients properly.
+      </p>
     </section>
 
+    <!-- Symptoms -->
     <section>
-      <h3>⚠️ Symptoms (Lakshan):</h3>
+      <h2>⚠️ Common Symptoms</h2>
+      <p>Symptoms vary from person to person. Some people may not even show obvious digestive issues, while others face severe problems. Common symptoms include:</p>
       <ul>
-        <li>Pet dard, gas, bloating</li>
-        <li>Loose motion ya kabhi kabhi constipation</li>
-        <li>Thakan, weight loss</li>
-        <li>Skin rash (Dermatitis Herpetiformis)</li>
-        <li>Iron deficiency (anemia)</li>
+        <li>Frequent diarrhea or constipation</li>
+        <li>Stomach pain, bloating, and gas</li>
+        <li>Weight loss or poor growth in children</li>
+        <li>Fatigue and weakness</li>
+        <li>Iron-deficiency anemia</li>
+        <li>Skin rashes (Dermatitis Herpetiformis)</li>
+        <li>Bone or joint pain</li>
+        <li>Mood changes (anxiety, depression)</li>
       </ul>
     </section>
 
+    <!-- Causes -->
     <section>
-      <h3>📌 Cause (Karan):</h3>
-      <p>Wheat, barley, rye me ek protein hota hai — <strong>gluten</strong>. Celiac wale log isse digest nahi kar paate. Immune system react karta hai aur aant ki lining kharaab ho jaati hai.</p>
+      <h2>🧬 Why Does Celiac Disease Happen?</h2>
+      <p>
+        The exact cause is not fully known, but it develops from a combination of 
+        <strong>genetics</strong> and <strong>environmental triggers</strong>. 
+        People with certain genes (HLA-DQ2 or HLA-DQ8) are more likely to develop the disease. 
+        Sometimes, it may be triggered after surgery, pregnancy, viral infections, or severe stress.
+      </p>
     </section>
 
+    <!-- Complications -->
     <section>
-      <h3>🛠️ Treatment:</h3>
-      <p>Iska sirf ek hi treatment hai — <strong>life-long gluten-free diet</strong>. Roti, bread, noodles, biscuits etc. avoid karna padta hai.</p>
+      <h2>🚨 Complications if Untreated</h2>
+      <p>
+        If celiac disease is left untreated, it can lead to serious health issues such as:
+      </p>
+      <ul>
+        <li>Malnutrition (due to poor nutrient absorption)</li>
+        <li>Osteoporosis (weak bones)</li>
+        <li>Infertility or miscarriage</li>
+        <li>Nervous system problems (headaches, seizures, neuropathy)</li>
+        <li>Increased risk of certain cancers (rare but possible)</li>
+      </ul>
     </section>
 
-    <img src="https://www.gastroconsa.com/wp-content/uploads/2021/10/celiac-disease.jpg" 
-     alt="Celiac Disease" 
-     width="80%" 
-     style="margin: 20px auto; display: block; border-radius: 10px;">
+    <!-- Living with Celiac -->
+    <section>
+      <h2>🥗 Living with Celiac Disease</h2>
+      <p>
+        The only effective treatment is a <strong>strict gluten-free diet</strong>. 
+        By avoiding foods that contain gluten and choosing safe alternatives, 
+        people with celiac disease can live healthy, active lives. 
+        Support groups, dieticians, and awareness can make this journey easier.
+      </p>
+    </section>
 
+    <img src="https://www.cdc.gov/celiac/images/what-is-celiac.jpg" 
+         alt="Celiac Disease Awareness" 
+         width="400px" 
+         style="display: block; margin: 20px auto; border-radius: 12px; box-shadow: 0px 0px 8px gray;">
 
   </main>
 
-  <!-- 📷 Scanner Button -->
-<div style="position: fixed; bottom: 20px; right: 20px; z-index: 999;">
-  <button onclick="openScanner()" style="background-color: #4CAF50; color: white; border: none; padding: 15px; border-radius: 50%; font-size: 24px;">
-    📷
-  </button>
-</div>
-
-<!-- 📦 Scanner Container -->
-<div id="scanner-container" style="display:none; position: fixed; top:0; left:0; width:100vw; height:100vh; background-color:#000000cc; z-index:9999;">
-  <div style="position: absolute; top: 10px; right: 10px;">
-    <button onclick="closeScanner()" style="background: red; color: white; border: none; padding: 10px; font-size: 18px;">✖</button>
-  </div>
-
-  <!-- ✅ Add this line below -->
-  <div id="loading" style="color: white; text-align: center; font-size: 20px; margin-top: 20px;">Scanning...</div>
-
-  <div id="scanner" style="width: 100%; height: 100%;"></div>
-</div>
-
-
-
   <footer>
     <p>&copy; 2025 GlutoCare | Designed by Komal</p>
-    <p>📧 Email: <a href="mailto:glutocare@gmail.com">glutocare@gmail.com</a> | 📞 +91-9876543210</p>
-    <p><a href="contact.html">Contact Us</a></p>
+    <p>📧 Email: <a href="mailto:glutocare@gmail.com">glutocare@gmail.com</a></p>
   </footer>
-
-    
-<script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
-
-<script>
-function openScanner() {
-  document.getElementById("scanner-container").style.display = "block";
-
- Quagga.init({
-  inputStream: {
-    name: "Live",
-    type: "LiveStream",
-    target: document.querySelector('#scanner'),
-    constraints: {
-      width: 640,
-      height: 480,
-      facingMode: "environment"
-    }
-  },
-  locator: {
-    patchSize: "medium",  // can try "large" or "x-large"
-    halfSample: true       // use `true` for faster processing
-  },
-  numOfWorkers: 2,         // reduce workers for faster response
-  decoder: {
-    readers: [
-      "ean_reader",       // ✅ Use only what you need
-      "ean_8_reader"
-    ]
-  },
-  locate: true
-}, function (err) {
-  if (err) {
-    console.error(err);
-    alert("Camera init error: " + err.message);
-    return;
-  }
-  Quagga.start();
-});
-
-  Quagga.onDetected(function (data) {
-    if (data.codeResult && data.codeResult.code && data.codeResult.code.length >= 8) {
-      let code = data.codeResult.code;
-      Quagga.stop();
-
-      document.getElementById("loading").style.display = "block";
-      document.getElementById("scanner-container").style.display = "none";
-
-      // 🔁 Barcode send to Flask backend for gluten check
-      fetch('/check_barcode', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ barcode: code })
-      })
-      .then(response => response.json())
-      .then(data => {
-        alert("🔍 Result: " + data.result);
-      })
-      .catch(error => {
-        alert("❌ Error checking barcode: " + error);
-      });
-    }
-  });
-}
-
-function closeScanner() {
-  Quagga.stop();
-  document.getElementById("scanner-container").style.display = "none";
-}
-</script>
-
-<!-- 🤖 Chatbot UI -->
-<div id="chatbot-container">
-  <div id="chat-header">Ask about Celiac Disease 🤖</div>
-  <div id="chat-messages"></div>
-  <div id="chat-input-area">
-    <input type="text" id="chat-input" placeholder="Ask me anything..." />
-    <button onclick="sendMessage()">Send</button>
-  </div>
-</div>
-
-<script>
-  async function sendMessage() {
-    const input = document.getElementById("chat-input");
-    const message = input.value.trim();
-    if (message === "") return;
-
-    const chatBox = document.getElementById("chat-messages");
-    const userDiv = document.createElement("div");
-    userDiv.textContent = "🧑‍⚕️ You: " + message;
-    chatBox.appendChild(userDiv);
-    input.value = "";
-
-    try {
-      const res = await fetch("/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: message })
-      });
-
-      const data = await res.json();
-      const botDiv = document.createElement("div");
-      botDiv.textContent = "🤖 Bot: " + data.reply;
-      chatBox.appendChild(botDiv);
-      chatBox.scrollTop = chatBox.scrollHeight;
-    } catch (error) {
-      const errorDiv = document.createElement("div");
-      errorDiv.textContent = "❌ Error talking to bot.";
-      chatBox.appendChild(errorDiv);
-    }
-  }
-</script>
 
 </body>
 </html>
-
-
-
-  
-
-
-

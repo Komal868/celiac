@@ -22,8 +22,8 @@
   <!-- 🟢 Welcome Section -->
 <section class="welcome-section">
   <div class="welcome-content">
-    <h1>Welcome to <span style="color: #fbc02d;">GlutoSafe</span></h1>
-    <p>Your trusted companion in gluten-free living 🥬</p>
+    <h1>Welcome to <span style="color: #2dc42d;">GlutoSafe</span></h1>
+    <p> Your trusted companion in gluten-free living  🥬</p>
   </div>
 </section>
 
@@ -31,9 +31,9 @@
 <nav class="main-nav">
   <a href="/">Home</a>
   <a href="/celiac">What is Celiac?</a>
-  <a href="/diet-form">Diet</a>
-  <a href="/symptom_checker">Tests</a>
-  <a href="/contact">Contact</a> <!-- (make this route in Flask if needed) -->
+  <a href="/diet">Diet</a>
+  <a href="/tests">Tests</a>
+  <a href="/contact">Contact</a>
 </nav>
 
 
@@ -134,18 +134,9 @@
   </div>
 </section>
 
-<!-- 💬 Chatbot Floating Button -->
-<div id="chatbot-icon" onclick="toggleChatbot()">💬</div>
 
-<!-- 💬 Chatbot Box (Initially Hidden) -->
-<div id="chatbot-container" style="display: none;">
-  <div id="chat-header">🤖 Ask Me About Celiac</div>
-  <div id="chat-messages"></div>
-  <div id="chat-input-area">
-    <input type="text" id="chat-input" placeholder="Ask me anything...">
-    <button onclick="sendMessage()">Send</button>
-  </div>
-</div>
+
+
 
 <script>
 function toggleChatbot() {
@@ -222,49 +213,50 @@ function sendMessage() {
   <footer class="site-footer">
   <div class="footer-container">
     
-    <div class="footer-column">
-      <h3>About GlutoSafe</h3>
-      <p>Your trusted guide for living a safe and healthy gluten-free life. Powered by AI and community.</p>
+     <div class="footer-column" style="max-width: 250px;">
+      <h3 style="color: #ff9800;">About GlutoSafe</h3>
+      <p style="color: #ddd;">Your trusted guide for living a safe and healthy gluten-free life. Powered by AI and community.</p>
     </div>
 
     <div class="footer-column">
-      <h3>Quick Links</h3>
+      <h3 style="color: #ff9800;">Quick Links</h3>
       <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">What is Celiac?</a></li>
-        <li><a href="#">Diet</a></li>
-        <li><a href="#">Tests</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="#" style="color: #bbb; text-decoration: none;">Home</a></li>
+        <li><a href="#" style="color: #bbb; text-decoration: none;">What is Celiac?</a></li>
+        <li><a href="#" style="color: #bbb; text-decoration: none;">Diet</a></li>
+        <li><a href="#" style="color: #bbb; text-decoration: none;">Tests</a></li>
+        <li><a href="#" style="color: #bbb; text-decoration: none;">Contact</a></li>
       </ul>
     </div>
 
     <div class="footer-column">
       <h3>Resources</h3>
-      <ul>
-        <li><a href="#">Gluten-Free Recipes</a></li>
-        <li><a href="#">Educational Videos</a></li>
-        <li><a href="#">Celiac Support Groups</a></li>
-        <li><a href="#">FAQs</a></li>
+       <ul style="list-style: none; padding: 0;">
+        <li><a href="#" style="color: #bbb; text-decoration: none;">Gluten-Free Recipes</a></li>
+        <li><a href="#" style="color: #bbb; text-decoration: none;">Educational Videos</a></li>
+        <li><a href="#" style="color: #bbb; text-decoration: none;">Celiac Support Groups</a></li>
+        <li><a href="#" style="color: #bbb; text-decoration: none;">FAQs</a></li>
       </ul>
     </div>
 
     <div class="footer-column">
-      <h3>Contact Us</h3>
-      <p>Email: support@glutosafe.com</p>
-      <p>Phone: +91-9876543210</p>
-      <p>Location: India</p>
+      <h3 style="color: #ff9800;">Contact Us</h3>
+      <p style="color: #ddd;">Email: <span style="color: #4caf50;">support@glutosafe.com</span></p>
+      <p style="color: #ddd;">Phone: <span style="color: #4caf50;">+91-987654XXXX</span></p>
+      <p style="color: #ddd;">Location: <span style="color: #4caf50;">India</span></p>
 
-      <div class="social-icons">
-        <a href="#"><i class="fab fa-facebook-f"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-twitter"></i></a>
-        <a href="#"><i class="fab fa-youtube"></i></a>
+
+      <div class="social-icons" style="margin-top: 10px;">
+        <a href="#" style="color: #3b5998; margin-right: 10px;"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" style="color: #e1306c; margin-right: 10px;"><i class="fab fa-instagram"></i></a>
+        <a href="#" style="color: #1da1f2; margin-right: 10px;"><i class="fab fa-twitter"></i></a>
+        <a href="#" style="color: #ff0000; margin-right: 10px;"><i class="fab fa-youtube"></i></a>
       </div>
     </div>
   </div>
 
-  <div class="footer-bottom">
-    <p>&copy; 2025 GlutoSafe. All rights reserved. | Designed with ❤️ by <strong>Komal</strong></p>
+    <div class="footer-bottom" style="text-align: center; margin-top: 20px; border-top: 1px solid #444; padding-top: 10px; color: #bbb;">
+    <p> <strong style="color:#ff9800;"></strong>&copy; 2025 GlutoSafe. All rights reserved. | Designed with ❤️ by <strong style="color:#ff9800;">Komal</strong></p>
   </div>
 </footer>
 
